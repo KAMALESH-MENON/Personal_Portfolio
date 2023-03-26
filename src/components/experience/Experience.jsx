@@ -45,13 +45,13 @@ const Experience = () => {
           </div>
         </div>
         {/*END OF FRONTEND*/}
-        
+
         <div className="experience_backend">
         <h1>Backend Developer</h1>
           <div className="experience_content">
             <article className="experience_details">
               <BsFillPatchCheckFill/>
-              <h4>HTML</h4>
+              <h4>SQL</h4>
               <small className="text-light">Experienced</small>
             </article>
             <article className="experience_details">
