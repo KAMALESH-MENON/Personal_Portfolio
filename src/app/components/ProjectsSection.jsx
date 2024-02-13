@@ -11,7 +11,7 @@ const projectsData = [
     techStack: "React, Next.js, Tailwind CSS",
     description:
       "Developed and maintained a personal portfolio website showcasing my professional journey, skills, and notable projects. The platform serves as a dynamic resume, providing a comprehensive overview of my expertise and work samples for prospective employers and collaborators. ",
-    image: "/images/projects/1.png",
+    image: "/images/projects/Portfolio.png",
     tag: ["All", "Web"],
     gitUrl: "/",
     previewUrl: "/",
@@ -22,7 +22,7 @@ const projectsData = [
     techStack: "Python, C++, Flask, Serverless Postgres Neon",
     description:
       "A transformative solution designed to intelligently control energy usage. Beyond traditional functions, it tracks usage patterns, offers personalized efficiency suggestions, and provides real-time electricity bill predictions. This device not only optimizes energy efficiency but also fosters transparency and awareness about individual appliance consumption, presenting a pioneering solution for a sustainable energy future.",
-    image: "/images/projects/2.png",
+    image: "/images/projects/smartAdaptor.png",
     tag: ["All", "Web", "IoT"],
     gitUrl: "/",
     previewUrl: "/",
@@ -33,11 +33,23 @@ const projectsData = [
     techStack: "Core JAVA, MySQL ",
     description:
       "This project, incorporating JDBC, empowers users to streamline tour planning, organize travel arrangements, and manage accommodations with ease through an intuitive graphical interface.",
-    image: "/images/projects/3.png",
+    image: "/images/projects/travelAndTourismManagement.png",
     tag: ["All", "Web"],
     gitUrl: "/",
     previewUrl: "/",
   },
+  {
+    id: 4,
+    title: "Weather App",
+    techStack: "Angular, TypeScript",
+    description:
+      "Created a responsive Angular Weather App, delivering real-time weather updates for a specific city. Proficient in Angular, API integration, and ensuring a user-friendly experience for accessing accurate localized weather forecasts.",
+    image: "/images/projects/weatherApp.png",
+    tag: ["All", "Web"],
+    gitUrl: "https://github.com/KAMALESH-MENON/weatherApp",
+    previewUrl: "https://weather-app-wheat-seven.vercel.app/",
+  },
+  
 ];
 
 const ProjectsSection = () => {
