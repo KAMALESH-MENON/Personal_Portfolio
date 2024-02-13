@@ -11,7 +11,7 @@ const projectsData = [
     techStack: "React, Next.js, Tailwind CSS",
     description:
       "Developed and maintained a personal portfolio website showcasing my professional journey, skills, and notable projects. The platform serves as a dynamic resume, providing a comprehensive overview of my expertise and work samples for prospective employers and collaborators. ",
-    image: "/images/projects/Portfolio.png",
+    image: "/images/projects/portfolio.png",
     tag: ["All", "Web"],
     gitUrl: "/",
     previewUrl: "/",
