@@ -52,7 +52,7 @@ const TAB_DATA = [
 
             <div className="flex justify-between">
               <div className="w-0.25/3">
-                <li>HIGHER SECONDARY SCHOOL</li>
+                <li>HIGHER SECONDARY CERTIFICATE</li>
                 <ul>
                   Kendriya Vidyalaya
                   <br />
@@ -68,7 +68,7 @@ const TAB_DATA = [
 
             <div className="flex justify-between">
               <div className="w-2/3">
-                <li>HIGHER SECONDARY SCHOOL</li>
+                <li>SECONDARY SCHOOL CERTIFICATE</li>
                 <ul>
                   Kendriya Vidyalaya
                   <br />
@@ -101,7 +101,7 @@ const TAB_DATA = [
           <Link
             className="bg-blue-500 text-white px-4 py-2 rounded"
             href="/verify-certificate">
-              Verify Certificate
+            Verify Certificate
           </Link>
         </div>
       </div>
