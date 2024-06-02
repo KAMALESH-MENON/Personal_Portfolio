@@ -1,9 +1,10 @@
-"use client";
+"use client"; // Add this at the top of your file
+
 import React, { useState } from "react";
 import GithubIcon from "../../../public/github-icon.svg";
 import LinkedinIcon from "../../../public/linkedin-icon.svg";
 import LeetcodeIcon from "../../../public/leetcode-icon.svg";
-import codechefIcon from "../../../public/codechef-icon.svg";
+import CodechefIcon from "../../../public/codechef-icon.svg";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -20,15 +21,11 @@ const EmailSection = () => {
     const JSONdata = JSON.stringify(data);
     const endpoint = "/api/send";
 
-    // Form the request for sending data to the server.
     const options = {
-      // The method is POST because we are sending data.
       method: "POST",
-      // Tell the server we're sending JSON.
       headers: {
         "Content-Type": "application/json",
       },
-      // Body of the request is the JSON data we created above.
       body: JSONdata,
     };
 
@@ -51,7 +48,6 @@ const EmailSection = () => {
           Let&apos;s Connect
         </h5>
         <p className="text-[#ADB7BE] mb-4 max-w-md">
-          {" "}
           I&apos;m currently looking for new opportunities, my inbox is always
           open. Whether you have a question or just want to say hi, I&apos;ll
           try my best to get back to you!
@@ -72,7 +68,7 @@ const EmailSection = () => {
           </Link>
           <Link href="https://www.codechef.com/users/kamalesh06">
             <Image
-              src={codechefIcon}
+              src={CodechefIcon}
               alt="CodeChef Icon"
               style={{ padding: "5px" }}
             />
@@ -86,11 +82,8 @@ const EmailSection = () => {
           </p>
         ) : (
           <form
-            target="_blank"
-            action="https://formsubmit.co/kamalcbe86@gmail.com"
-            method="POST"
-            className="flex flex-col"
-            /* onSubmit={handleSubmit} */>
+            onSubmit={handleSubmit} // Enable the custom submit handler
+            className="flex flex-col">
             <div className="mb-6">
               <label
                 htmlFor="email"
