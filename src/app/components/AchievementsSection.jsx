@@ -7,25 +7,35 @@ const AnimatedNumbers = dynamic(
   { ssr: false }
 );
 
-const LEETCODE_USERNAME = "kamalcbe86"; // <-- update with your username
+const LEETCODE_USERNAME = "kamalcbe86";
+const GITHUB_USERNAME = "KAMALESH-MENON";
 
 const AchievementsSection = () => {
   const [leetcodeSolved, setLeetcodeSolved] = useState(null);
+  const [githubProjects, setGithubProjects] = useState(null);
 
   useEffect(() => {
-    // Example using leetcode-stats-api (unofficial)
+    // LeetCode fetch
     fetch(`https://leetcode-stats-api.herokuapp.com/${LEETCODE_USERNAME}`)
       .then((res) => res.json())
       .then((data) => {
         setLeetcodeSolved(data.totalSolved);
       })
       .catch(() => setLeetcodeSolved(null));
+
+    // GitHub fetch
+    fetch(`https://api.github.com/users/${GITHUB_USERNAME}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setGithubProjects(data.public_repos);
+      })
+      .catch(() => setGithubProjects(null));
   }, []);
 
   const achievementsList = [
     {
       metric: "Projects",
-      value: 10,
+      value: githubProjects !== null ? githubProjects : null,
       postfix: "+",
     },
     {
