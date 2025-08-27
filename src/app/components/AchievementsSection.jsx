@@ -35,7 +35,7 @@ const AchievementsSection = () => {
     },
     {
       metric: "Certifications",
-      value: 5,
+      value: 11,
       postfix: "+",
     },
   ];
