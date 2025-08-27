@@ -4,26 +4,41 @@ import React, { useTransition, useState } from "react";
 import Image from "next/image";
 import TabButton from "./TabButton";
 import Link from "next/link";
+import { FaPython, FaJava, FaNodeJs, FaHtml5, FaCss3Alt, FaReact, FaAngular, FaGitAlt, FaLinux, FaDatabase } from "react-icons/fa";
+import { SiTypescript, SiMysql, SiGnubash } from "react-icons/si";
+
+const SKILLS = [
+  { name: "Python", icon: <FaPython className="text-yellow-400" /> },
+  { name: "Java", icon: <FaJava className="text-red-500" /> },
+  { name: "MySQL", icon: <SiMysql className="text-blue-500" /> },
+  { name: "Node.js", icon: <FaNodeJs className="text-green-500" /> },
+  { name: "HTML", icon: <FaHtml5 className="text-orange-500" /> },
+  { name: "CSS", icon: <FaCss3Alt className="text-blue-400" /> },
+  { name: "JavaScript", icon: <FaReact className="text-yellow-300" /> },
+  { name: "React", icon: <FaReact className="text-cyan-400" /> },
+  { name: "Angular", icon: <FaAngular className="text-red-600" /> },
+  { name: "TypeScript", icon: <SiTypescript className="text-blue-600" /> },
+  { name: "C", icon: <FaDatabase className="text-gray-400" /> },
+  { name: "Git", icon: <FaGitAlt className="text-orange-400" /> },
+  { name: "Bash", icon: <SiGnubash className="text-green-700" /> },
+];
 
 const TAB_DATA = [
   {
     title: "Skills",
     id: "skills",
     content: (
-      <ul className="list-disc pl-4">
-        <li>Python</li>
-        <li>Java</li>
-        <li>MySQL</li>
-        <li>Node.js</li>
-        <li>HTML/CSS</li>
-        <li>JavaScript</li>
-        <li>React</li>
-        <li>Angular</li>
-        <li>TypeScript</li>
-        <li>C</li>
-        <li>Git</li>
-        <li>Bash</li>
-      </ul>
+      <div className="flex flex-wrap gap-4">
+        {SKILLS.map((skill) => (
+          <span
+            key={skill.name}
+            className="flex items-center gap-2 bg-[#23272F] px-4 py-2 rounded-full shadow hover:scale-105 transition-transform duration-200"
+          >
+            {skill.icon}
+            <span className="font-semibold">{skill.name}</span>
+          </span>
+        ))}
+      </div>
     ),
   },
   {
@@ -76,10 +91,11 @@ const TAB_DATA = [
           <li>The Linux Foundation - Introduction to Kubernetes</li>
         </ul>
         <div className="mt-4">
-          <Link href="/verify-certificate">
-            <a className="bg-blue-500 text-white px-4 py-2 rounded">
-              Verify Certificate
-            </a>
+          <Link
+            href="/verify-certificate"
+            className="bg-blue-500 text-white px-4 py-2 rounded"
+          >
+            Verify Certificate
           </Link>
         </div>
       </div>
