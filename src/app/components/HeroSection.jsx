@@ -34,9 +34,8 @@ const HeroSection = () => {
             />
           </h1>
           <p className="text-[#ADB7BE] text-base sm:text-lg mb-6 lg:text-xl">
-            Actively searching for internship and entry-level roles
-            <br />
-            to make a meaningful start to my career and enhance my skills.
+            Currently working as a software developer,<br />
+            passionate about building impactful solutions and continuously growing my skills.
           </p>
           <div>
             <Link
