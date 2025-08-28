@@ -3,6 +3,7 @@ import React, { useState, useRef } from "react";
 import ProjectCard from "./ProjectCard";
 import ProjectTag from "./ProjectTag";
 import { motion, useInView } from "framer-motion";
+import { SparklesIcon } from "@heroicons/react/24/solid";
 
 const projectsData = [
   {
@@ -71,11 +72,17 @@ const ProjectsSection = () => {
   };
 
   return (
-    <section id="projects">
-      <h2 className="text-center text-4xl font-bold text-white mt-4 mb-8 md:mb-12">
+    <section id="projects" className="relative py-12">
+      {/* Animated background sparkles */}
+      <div className="pointer-events-none absolute inset-0 z-0">
+        <div className="w-full h-full bg-gradient-to-br from-[#23272F] via-[#1e293b]/80 to-[#23272F] opacity-70 blur-2xl animate-gradient-move" />
+      </div>
+      <h2 className="relative z-10 text-center text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-cyan-400 to-purple-400 mt-4 mb-8 md:mb-12 drop-shadow-lg flex items-center justify-center gap-2">
+        <SparklesIcon className="w-8 h-8 text-pink-400 animate-bounce" />
         My Projects
+        <SparklesIcon className="w-8 h-8 text-cyan-400 animate-bounce" />
       </h2>
-      <div className="text-white flex flex-row justify-center items-center gap-2 py-6">
+      <div className="relative z-10 text-white flex flex-row justify-center items-center gap-2 py-6">
         <ProjectTag
           onClick={handleTagChange}
           name="All"
@@ -92,14 +99,14 @@ const ProjectsSection = () => {
           isSelected={tag === "IoT"}
         />
       </div>
-      <ul ref={ref} className="grid md:grid-cols-3 gap-8 md:gap-12">
+      <ul ref={ref} className="relative z-10 grid md:grid-cols-3 gap-8 md:gap-12">
         {filteredProjects.map((project, index) => (
           <motion.li
             key={index}
             variants={cardVariants}
             initial="initial"
             animate={isInView ? "animate" : "initial"}
-            transition={{ duration: 0.3, delay: index * 0.4 }}>
+            transition={{ duration: 0.4, delay: index * 0.3 }}>
             <ProjectCard
               key={project.id}
               title={project.title}
@@ -112,6 +119,17 @@ const ProjectsSection = () => {
           </motion.li>
         ))}
       </ul>
+      <style jsx global>{`
+        @keyframes gradient-move {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
+        .animate-gradient-move {
+          background-size: 200% 200%;
+          animation: gradient-move 10s ease-in-out infinite;
+        }
+      `}</style>
     </section>
   );
 };
