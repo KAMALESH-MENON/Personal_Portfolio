@@ -209,6 +209,23 @@ const TAB_DATA = [
               <span className="text-white font-semibold px-4 py-2 bg-gray-700 rounded-full shadow-lg">View Certification</span>
             </a>
           </div>
+          {/* Card 7 */}
+          <div className="relative group flex items-center gap-4 bg-gradient-to-r from-emerald-900/60 to-green-900/40 rounded-xl p-4 shadow-lg border-l-4 border-emerald-400 hover:scale-[1.02] transition-transform duration-200">
+            <span className="text-2xl">🌱</span>
+            <div>
+              <h4 className="font-bold text-emerald-300">Terraform for the Absolute Beginners with Labs</h4>
+              <p className="text-xs text-emerald-200">Udemy</p>
+            </div>
+            <a
+              href="https://www.udemy.com/certificate/UC-5e81fc59-cb13-449b-bc84-0ae0ccd434fb/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="absolute inset-0 flex items-center justify-center bg-emerald-900/80 bg-opacity-80 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+              style={{ zIndex: 10 }}
+            >
+              <span className="text-white font-semibold px-4 py-2 bg-emerald-600 rounded-full shadow-lg">View Certification</span>
+            </a>
+          </div>
         </div>
       </div>
     ),
