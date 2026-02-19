@@ -2,12 +2,10 @@
 import React, { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 
-const AnimatedNumbers = dynamic(
-  () => import("react-animated-numbers"),
-  { ssr: false }
-);
+const AnimatedNumbers = dynamic(() => import("react-animated-numbers"), {
+  ssr: false,
+});
 
-const LEETCODE_USERNAME = "kamalcbe86";
 const GITHUB_USERNAME = "KAMALESH-MENON";
 
 const AchievementsSection = () => {
@@ -15,13 +13,13 @@ const AchievementsSection = () => {
   const [githubProjects, setGithubProjects] = useState(null);
 
   useEffect(() => {
-    // LeetCode fetch
-    fetch(`https://leetcode-stats-api.herokuapp.com/${LEETCODE_USERNAME}`)
+    // New internal LeetCode fetch
+    fetch("/api/leetcode")
       .then((res) => res.json())
       .then((data) => {
         setLeetcodeSolved(data.totalSolved);
       })
-      .catch(() => setLeetcodeSolved(null));
+      .catch(() => setLeetcodeSolved(0));
 
     // GitHub fetch
     fetch(`https://api.github.com/users/${GITHUB_USERNAME}`)
@@ -29,7 +27,7 @@ const AchievementsSection = () => {
       .then((data) => {
         setGithubProjects(data.public_repos);
       })
-      .catch(() => setGithubProjects(null));
+      .catch(() => setGithubProjects(0));
   }, []);
 
   const achievementsList = [
@@ -56,11 +54,11 @@ const AchievementsSection = () => {
         {achievementsList.map((achievement, index) => (
           <div
             key={index}
-            className="flex flex-col items-center justify-center mx-4 my-4 sm:my-0"
-          >
+            className="flex flex-col items-center justify-center mx-4 my-4 sm:my-0">
             <h2 className="text-white text-4xl font-bold flex flex-row">
               {achievement.prefix}
-              {achievement.value === null && achievement.metric === "Leetcode Solved" ? (
+              {achievement.value === null &&
+              achievement.metric === "Leetcode Solved" ? (
                 <span className="text-base text-gray-400 ml-2">Loading...</span>
               ) : (
                 <AnimatedNumbers
