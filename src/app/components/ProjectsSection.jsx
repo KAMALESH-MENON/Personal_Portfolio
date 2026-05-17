@@ -1,70 +1,74 @@
 "use client";
-import React, { useState, useRef } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import ProjectCard from "./ProjectCard";
 import ProjectTag from "./ProjectTag";
 import { motion, useInView } from "framer-motion";
 import { SparklesIcon } from "@heroicons/react/24/solid";
 
-const projectsData = [
-  {
-    id: 1,
-    title: "React Portfolio Website",
-    techStack: "React, Next.js, Tailwind CSS",
-    description:
-      "Developed and maintained a personal portfolio website showcasing my professional journey, skills, and notable projects. The platform serves as a dynamic resume, providing a comprehensive overview of my expertise and work samples for prospective employers and collaborators. ",
-    image: "/images/projects/portfolio.png",
-    tag: ["All", "Web"],
-    gitUrl: "/",
-    previewUrl: "/",
-  },
-  {
-    id: 2,
-    title: "Smart Adaptor",
-    techStack: "Python, C++, Flask, Serverless Postgres Neon",
-    description:
-      "A transformative solution designed to intelligently control energy usage. Beyond traditional functions, it tracks usage patterns, offers personalized efficiency suggestions, and provides real-time electricity bill predictions. This device not only optimizes energy efficiency but also fosters transparency and awareness about individual appliance consumption, presenting a pioneering solution for a sustainable energy future.",
-    image: "/images/projects/smartAdaptor.png",
-    tag: ["All", "Web", "IoT"],
-    gitUrl: "/",
-    previewUrl: "/",
-  },
-  {
-    id: 3,
-    title: "Travel and Tourism Management",
-    techStack: "Core JAVA, MySQL ",
-    description:
-      "This project, incorporating JDBC, empowers users to streamline tour planning, organize travel arrangements, and manage accommodations with ease through an intuitive graphical interface.",
-    image: "/images/projects/travelAndTourismManagement.png",
-    tag: ["All", "Web"],
-    gitUrl: "/",
-    previewUrl: "/",
-  },
-  {
-    id: 4,
-    title: "Weather App",
-    techStack: "Angular, TypeScript",
-    description:
-      "Created a responsive Angular Weather App, delivering real-time weather updates for a specific city. Proficient in Angular, API integration, and ensuring a user-friendly experience for accessing accurate localized weather forecasts.",
-    image: "/images/projects/weatherApp.png",
-    tag: ["All", "Web"],
-    gitUrl: "https://github.com/KAMALESH-MENON/weatherApp",
-    previewUrl: "https://weather-app-wheat-seven.vercel.app/",
-  },
-  
-];
-
 const ProjectsSection = () => {
   const [tag, setTag] = useState("All");
+  const [sortBy, setSortBy] = useState("updated");
+  const [projectsData, setProjectsData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [loadError, setLoadError] = useState("");
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
+
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        setIsLoading(true);
+        setLoadError("");
+
+        const response = await fetch("/api/github-projects", {
+          cache: "no-store",
+        });
+
+        if (!response.ok) {
+          throw new Error("Unable to fetch GitHub projects");
+        }
+
+        const data = await response.json();
+        setProjectsData(data.projects || []);
+      } catch (error) {
+        setLoadError("Could not load projects right now.");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchProjects();
+  }, []);
 
   const handleTagChange = (newTag) => {
     setTag(newTag);
   };
 
+  const availableTags = useMemo(() => {
+    const dynamicTags = new Set(["All"]);
+
+    projectsData.forEach((project) => {
+      (project.tag || []).forEach((projectTag) => dynamicTags.add(projectTag));
+    });
+
+    return Array.from(dynamicTags);
+  }, [projectsData]);
+
   const filteredProjects = projectsData.filter((project) =>
     project.tag.includes(tag)
   );
+
+  const sortedProjects = useMemo(() => {
+    const projectsList = [...filteredProjects];
+
+    if (sortBy === "stars") {
+      return projectsList.sort((a, b) => (b.stars || 0) - (a.stars || 0));
+    }
+
+    return projectsList.sort(
+      (a, b) => new Date(b.updatedAt || 0) - new Date(a.updatedAt || 0)
+    );
+  }, [filteredProjects, sortBy]);
 
   const cardVariants = {
     initial: { y: 50, opacity: 0 },
@@ -83,24 +87,46 @@ const ProjectsSection = () => {
         <SparklesIcon className="w-8 h-8 text-cyan-400 animate-bounce" />
       </h2>
       <div className="relative z-10 text-white flex flex-row justify-center items-center gap-2 py-6">
-        <ProjectTag
-          onClick={handleTagChange}
-          name="All"
-          isSelected={tag === "All"}
-        />
-        <ProjectTag
-          onClick={handleTagChange}
-          name="Web"
-          isSelected={tag === "Web"}
-        />
-        <ProjectTag
-          onClick={handleTagChange}
-          name="IoT"
-          isSelected={tag === "IoT"}
-        />
+        {availableTags.map((availableTag) => (
+          <ProjectTag
+            key={availableTag}
+            onClick={handleTagChange}
+            name={availableTag}
+            isSelected={tag === availableTag}
+          />
+        ))}
       </div>
+      <div className="relative z-10 flex justify-center gap-2 pb-6">
+        <button
+          onClick={() => setSortBy("updated")}
+          className={`px-4 py-2 rounded-full border text-sm transition ${
+            sortBy === "updated"
+              ? "border-cyan-400 text-cyan-300"
+              : "border-[#ADB7BE] text-[#ADB7BE]"
+          }`}>
+          Latest Updated
+        </button>
+        <button
+          onClick={() => setSortBy("stars")}
+          className={`px-4 py-2 rounded-full border text-sm transition ${
+            sortBy === "stars"
+              ? "border-pink-400 text-pink-300"
+              : "border-[#ADB7BE] text-[#ADB7BE]"
+          }`}>
+          Most Starred
+        </button>
+      </div>
+      {isLoading && (
+        <p className="relative z-10 text-center text-cyan-300">Loading GitHub projects...</p>
+      )}
+      {loadError && (
+        <p className="relative z-10 text-center text-pink-400">{loadError}</p>
+      )}
+      {!isLoading && !loadError && filteredProjects.length === 0 && (
+        <p className="relative z-10 text-center text-cyan-300">No projects found for this tag.</p>
+      )}
       <ul ref={ref} className="relative z-10 grid md:grid-cols-3 gap-8 md:gap-12">
-        {filteredProjects.map((project, index) => (
+        {sortedProjects.map((project, index) => (
           <motion.li
             key={index}
             variants={cardVariants}
