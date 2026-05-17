@@ -4,12 +4,24 @@ import React, { useTransition, useState } from "react";
 import Image from "next/image";
 import TabButton from "./TabButton";
 import Link from "next/link";
-import { FaPython, FaJava, FaNodeJs, FaHtml5, FaCss3Alt, FaReact, FaAngular, FaGitAlt, FaLinux, FaDatabase } from "react-icons/fa";
+import { FaPython, FaJava, FaNodeJs, FaHtml5, FaCss3Alt, FaReact, FaAngular, FaGitAlt, FaLinux, FaDatabase, FaDocker, FaAws } from "react-icons/fa";
 import { SiTypescript, SiMysql, SiGnubash } from "react-icons/si";
 import { Typewriter } from "react-simple-typewriter";
 
+const TerraformIcon = ({ className }) => (
+  <svg viewBox="0 0 128 128" width="1em" height="1em" className={className} fill="currentColor">
+    <path d="M77.941 44.5v36.836L46.324 62.918V26.082zm0 0" />
+    <path d="M81.41 81.336l31.633-18.418V26.082L81.41 44.5zm0 0" />
+    <path d="M11.242 42.36L42.86 60.776V23.941L11.242 5.523zm0 0" />
+    <path d="M46.324 99.95l31.617 18.418V81.336L46.324 62.918zm0 0" />
+  </svg>
+);
+
 const SKILLS = [
   { name: "Python", icon: <FaPython className="text-yellow-400" /> },
+  { name: "AWS", icon: <FaAws className="text-red-400" /> },
+  { name: "Terraform", icon: <TerraformIcon className="text-purple-400" /> },
+  { name: "Docker", icon: <FaDocker className="text-blue-400" /> },
   { name: "Java", icon: <FaJava className="text-red-500" /> },
   { name: "MySQL", icon: <SiMysql className="text-blue-500" /> },
   { name: "Node.js", icon: <FaNodeJs className="text-green-500" /> },
